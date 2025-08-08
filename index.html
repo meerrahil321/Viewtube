@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 0;
+            font-family: sans-serif;
+        }
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        /* Styles for the Code Entry Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .modal-content {
+            background: #2c2c2c;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            width: 90%;
+            max-width: 320px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #aaa;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 6px;
+            border: 1px solid #555;
+            background: #444;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .modal-button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 6px;
+            background: #9333ea;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .error-message {
+            color: #ff5c5c;
+            margin-top: 10px;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="videoWrapper" style="position: relative; width: 100%; max-width: 450px; height: 100vh; margin: auto; border: none; overflow: hidden; background-color: #1a1a1a;">
+
+  <!-- NEW: Top Banner Container -->
+
+  <div id="topBannerContainer" style="position: absolute; top: 15px; left: 50%; transform: translateX(-50%); z-index: 1001; display: none;">
+    <script type="text/javascript">
+      atOptions = {
+        'key' : '04444b60b1fb9f953507f39aa166973d',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/04444b60b1fb9f953507f39aa166973d/invoke.js"></script>
+  </div>
+
+  <iframe
+    id="videoFrame"
+    src="https://fuck-dating.com/video_app/new/adult/13/index.html"
+    width="100%"
+    height="100%"
+    style="border: none; display: block;"
+    allow="autoplay; encrypted-media"
+    allowfullscreen>
+  </iframe>
+
+  <div id="offlineOverlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #1a1a1a; display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 999; text-align: center; padding: 20px; box-sizing: border-box;">
+    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#9333ea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M1 1l22 22"></path><path d="M16.72 11.06a10.94 10.94 0 0 1 3.57 2.44"></path><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path><path d="M10.71 5.05a16 16 0 0 1 8.29 4.28"></path><path d="M1.42 9a16 16 0 0 1 4.58-2.88"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line>
+    </svg>
+    <p style="margin-top: 20px; font-size: 18px; font-weight: 600; color: #e0e0e0;">No Internet Connection</p>
+    <p style="font-size: 14px; color: #a0a0a0;">Please check your connection and try again.</p>
+  </div>
+
+  <div id="loadingSpinner" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26, 26, 26, 0.8); display: flex; justify-content: center; align-items: center; z-index: 998;">
+    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#9333ea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="spinner">
+      <path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M4.93 4.93l2.83 2.83"></path><path d="M16.24 16.24l2.83 2.83"></path><path d="M2 12h4"></path><path d="M18 12h4"></path><path d="M4.93 19.07l2.83-2.83"></path><path d="M16.24 7.76l2.83-2.83"></path>
+    </svg>
+  </div>
+
+  <div id="viewTubeBanner" style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 1000; background-color: black; color: #00ff00; padding: 20px; font-size: 20px; font-weight: bold; text-align: center; box-shadow: rgba(0, 255, 0, 0.6) 0px 0px 10px; cursor: pointer;">
+      View Tube
+  </div>
+</div>
+
+<!-- Code Entry Modal HTML -->
+
+<div id="codeModal" class="modal-overlay">
+    <div class="modal-content">
+        <button id="closeModal" class="modal-close">×</button>
+        <h3 style="color: #fff; margin-top: 0;">Enter Code</h3>
+        <input type="number" id="codeInput" class="modal-input" placeholder="----">
+        <button id="submitCode" class="modal-button">Submit</button>
+        <p id="errorMessage" class="error-message">Incorrect code. Please try again.</p>
+    </div>
+</div>
+
+<script>
+  const iframe = document.getElementById("videoFrame");
+  const offlineOverlay = document.getElementById("offlineOverlay");
+  const loadingSpinner = document.getElementById("loadingSpinner");
+  const viewTubeBanner = document.getElementById("viewTubeBanner");
+  const codeModal = document.getElementById("codeModal");
+  const closeModal = document.getElementById("closeModal");
+  const submitCodeBtn = document.getElementById("submitCode");
+  const codeInput = document.getElementById("codeInput");
+  const errorMessage = document.getElementById("errorMessage");
+  const topBanner = document.getElementById("topBannerContainer");
+
+  iframe.addEventListener("load", () => {
+    loadingSpinner.style.display = "none";
+  });
+
+  function updateNetworkStatus() {
+    if (navigator.onLine) {
+      offlineOverlay.style.display = "none";
+      if (!iframe.src.includes("http")) {
+        refreshVideo();
+      }
+    } else {
+      offlineOverlay.style.display = "flex";
+      loadingSpinner.style.display = "none";
+    }
+  }
+
+  function refreshVideo() {
+    loadingSpinner.style.display = "flex";
+    iframe.src = "https://fuck-dating.com/video_app/new/adult/13/index.html?t=" + new Date().getTime();
+  }
+
+  // --- Modal Logic ---
+  viewTubeBanner.addEventListener("click", () => {
+    codeModal.style.display = "flex";
+    codeInput.value = "";
+    errorMessage.style.display = "none";
+  });
+
+  closeModal.addEventListener("click", () => {
+    codeModal.style.display = "none";
+  });
+
+  codeModal.addEventListener("click", (e) => {
+    if (e.target === codeModal) {
+      codeModal.style.display = "none";
+    }
+  });
+
+  submitCodeBtn.addEventListener("click", () => {
+    if (codeInput.value === "5676") {
+      window.open("https://www.thumbzilla.com/", "_blank");
+      codeModal.style.display = "none";
+    } else {
+      errorMessage.style.display = "block";
+    }
+  });
+
+  // --- Initial Setup ---
+  window.addEventListener("online", updateNetworkStatus);
+  window.addEventListener("offline", updateNetworkStatus);
+
+  updateNetworkStatus();
+
+</script>
+
+</body>
+</html>
